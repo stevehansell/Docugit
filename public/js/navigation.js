@@ -1,4 +1,4 @@
-/*
+/*+
 Dependencies: jquery, mustache, loader
 
 	Usage:
@@ -36,7 +36,7 @@ Dependencies: jquery, mustache, loader
 		1) Element => 'body' || '.element' || '#element' || $('#element')
 		
 	nav.renderOn('some-dom-element')
-*/
++*/
 
 (function($) {
 
