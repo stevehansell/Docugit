@@ -11,8 +11,16 @@ class Docugit
     @repo = Grit::Repo.new(@git_directory)
   end
   
-  def get_committed_files
-    master_commits = @repo.commits
+  def committed_files
+    commit = @repo.commits.first
+    filenames = []
+    commit.diffs.each do |diff|
+      filenames << diff.a_path
+    end
+    filenames
   end
   
 end
+
+d = Docugit.new
+puts d.committed_files
