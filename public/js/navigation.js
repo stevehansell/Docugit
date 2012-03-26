@@ -1,4 +1,6 @@
-/*+
+/*+ Testing Documentation +*/
+
+/*
 Dependencies: jquery, mustache, loader
 
 	Usage:
