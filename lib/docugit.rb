@@ -15,7 +15,7 @@ class Docugit
     commit = @repo.commits.first
     filenames = []
     commit.diffs.each do |diff|
-      filenames << diff.a_path
+      filenames << [diff.a_path, diff.b_path]
     end
     filenames
   end
