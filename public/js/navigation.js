@@ -1,9 +1,9 @@
 /*+ 
-	Testing Documentation
-	Another Documentation Line
- +*/
+	# Testing Documentation #
+	## Another Documentation Line ##
++*/
 
-/*
+/*+
 Dependencies: jquery, mustache, loader
 
 	Usage:
