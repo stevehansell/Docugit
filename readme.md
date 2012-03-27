@@ -25,4 +25,4 @@ file with the repo location in your project directory.
 ####Running Docugit
 After initializing Docugit, commit the files with documentation. Simply run `docugit` from the project directory. The 
 files will be read and Markdown versions with just your documentation will be created in the outside Git repo location, 
-added, and commited with a Docugit commit message.
+added, and committed with a Docugit commit message.
