@@ -9,7 +9,7 @@ Clone Docugit and make sure that bin/docugit is in your load path.
 ###Usage
 
 ####Code comments
-Docugit looks for documentation in files between /*+ and +*/ tags.
+Docugit looks for documentation in files between /\*+ and +\*/ tags.
 
 ```javascript
 /*+
