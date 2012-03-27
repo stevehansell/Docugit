@@ -1,46 +1,54 @@
 /*+
-	# Testing Documentation #
-	## Another Documentation Line ##
-+*/
 
-/*+
-Dependencies: jquery, mustache, loader
+#navigation.js
 
-	Usage:
+##Dependencies
+1. jquery
+2. mustache
+3. loader
+
+##Usage
 	
-	Use leg.factory.loader to get JSON data
-						OR
-	Create an array of static objects
+Use leg.factory.loader to get JSON data or create an array of static objects
+
+```javascript
 	var staticLinks = [
 		{'name': 'Log in', 'urlName': '', 'className': 'menuLogin'},
 		{'name': 'Hints & tips', 'urlName': '', 'className': 'tipsLink'},
 		{'name': 'Send us feedback', 'urlName': 'mailto:online@stcloudtimes.com', 'className': 'feedback'}];
-		
+```
+
+####Constructor arguments:####
+1. Link data
+   * Either an object with a navigation property (obj.navigation) or an array of objects
+2. Options hash
+   * Template configuration: String indicating template file name or an object with 'name' and 'location' properties. The template location defaults to /html/mustache
+   * Events: An object indicating events built inside this object with a true/false value to bind that event
 	
-	Constructor arguments:
-		1) Link data => Either an object with a navigation property (obj.navigation) or an array of objects
-		2) Options hash
-			Template configuration => String indicating template file name or an object with 
-			'name' and 'location' properties. The template location defaults to /html/mustache
-			Events => An object indicating events built inside this object with a true/false value 
-			 to bind that event
-	
-	ex.
+```javascript
 	var nav = new window.leg.factory.navigation(staticLinks, {
 		'events': {
 			'scrollable': true,
 		},
 		'template': 'navigation_template.html'
 	});
-	
-	Add more nav objects before rendering
+```
+
+####Add more nav objects before rendering####
+
+```javascript
 	nav.add([{'name': 'Obituaries', 'urlName': 'obituaries'}]);
-	
-	Render the navigation
-	.renderOn argument
-		1) Element => 'body' || '.element' || '#element' || $('#element')
-		
-	nav.renderOn('some-dom-element')
+```
+
+####Render the navigation####
+.renderOn argument
+1. Element => 'body' || '.element' || '#element' || $('#element')
+
+```javascript
+nav.renderOn('some-dom-element')
+```
+
+
 +*/
 
 (function($) {
