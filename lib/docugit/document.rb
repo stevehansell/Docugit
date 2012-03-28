@@ -1,9 +1,11 @@
 class Document
+  attr_reader :file, :file_name, :file_ext, :markdown_file_name
   
-  def self.start(file, filename, wiki_directory)
-    File.open("#{wiki_directory}/#{filename}.md", "w+") do |f|
-      file.read.scan(/(?<=\/\*\+)(.*?)(?=\+\*\/)/m) {|doc| f.write($~) }
-    end
+  def initialize(file)
+    @file = file  
+    @file_name = file.split('/').last
+    @file_ext = @file_name.split('.').last
+    @markdown_file_name = @file_name + ".md"
   end
-    
+
 end

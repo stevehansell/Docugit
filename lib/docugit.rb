@@ -2,10 +2,11 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'grit'
+require 'docugit/documenter'
 require 'docugit/document'
 
 class Docugit
-  attr_reader :project_directory, :wiki_directory, :repo, :files, :current_file_name, :markdown_filenames
+  attr_reader :project_directory, :wiki_directory, :repo, :files, :documenter
   
   def self.setup(wiki_directory)
     File.open("#{Dir.pwd}/.docugit-config", "w+") {|f| f.write(wiki_directory) }
@@ -16,7 +17,6 @@ class Docugit
     @wiki_directory = get_wiki_directory
     @repo = Grit::Repo.new(@project_directory)
     @files = committed_files
-    @markdown_filenames = []
   end
   
   def committed_files
@@ -28,24 +28,18 @@ class Docugit
     filenames
   end
   
-  def to_markdown
+  def start
     puts "Documenting..."
-    @files.each do |commit_file|
-      File.open(commit_file) do |file|
-        @current_file_name = commit_file.split('/').last
-        puts "Reading #{commit_file}"
-        document = Document.start(file, @current_file_name, @wiki_directory)
-        @markdown_filenames << (@current_file_name + ".md")
-      end
-    end
+    @documenter = Documenter.new(@files, @wiki_directory)
+    @documenter.document  
     puts "\n"
-    puts "Added documentation to #{@wiki_directory} and commited #{@markdown_filenames.size} file(s)."
+    puts "Added documentation to #{@wiki_directory} and commited #{@documenter.count_markdown_files} file(s)."
   end
   
   def commit_to_wiki
     Dir.chdir(@wiki_directory) do
       wiki_repo = Grit::Repo.new(@wiki_directory)
-      wiki_repo.add(@markdown_filenames)
+      wiki_repo.add(@documenter.markdown_file_names)
       wiki_repo.commit_index('Automated documentation with Docugit!')
     end
   end
@@ -65,7 +59,7 @@ end
 
 if ARGV.empty?
   docugit = Docugit.new(ARGV)
-  docugit.to_markdown
+  docugit.start
   docugit.commit_to_wiki
 elsif ARGV[0] == 'init'
   begin
