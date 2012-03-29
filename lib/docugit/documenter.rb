@@ -10,8 +10,9 @@ class Documenter
   def document
     @files_to_document.each do |file_to_document|
       document = Document.new(file_to_document)
+      next unless document.compatible?
       puts "Reading #{document.file_name}"
-      to_markdown(document)
+      to_markdown(document) 
       @markdown_file_names << document.markdown_file_name
     end
   end
@@ -25,7 +26,7 @@ class Documenter
   def to_markdown(document)
     File.open(document.file) do |document_file|
       File.open("#{@markdown_destination}/#{document.markdown_file_name}", "w+") do |f|
-        document_file.read.scan(/(?<=\/\*\+)(.*?)(?=\+\*\/)/m) {|doc| f.write($~) }
+        document_file.read.scan(document.search_pattern) {|doc| f.write($~) }
       end
     end
   end
