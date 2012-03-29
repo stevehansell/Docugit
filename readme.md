@@ -9,13 +9,20 @@ Clone Docugit and make sure that bin/docugit is in your load path.
 ###Usage
 
 ####Code comments
-Docugit looks for documentation in files between /\*+ and +\*/ tags.
+Docugit reads JavaScript, HTML, and CSS files and comments. Append a plus symbol after the opening comment tag 
+and before the closing comment tag and Docugit will grab the documentation in between.
 
 ```javascript
 /*+
-	This is some sweet documentation!
+	This is some sweet JavaScript or CSS style documentation!
 +*/
 ````
+
+```html
+<!--+
+	More HTML style documentation
++-->
+```
 
 ####Initializing Docugit
 Docugit works with an outside Git repo, typically a Wiki like Gollum. From your project directory, 
